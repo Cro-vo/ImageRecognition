@@ -8,9 +8,9 @@ import kotlinx.coroutines.Dispatchers
 
 object Repository {
 
-    fun getAnimalInfo(image: String, baikeNum: Int) = liveData(Dispatchers.IO) {
+    fun getAnimalInfo(image: String) = liveData(Dispatchers.IO) {
         val result = try {
-            val animalResponse = ImageRecognitionNetwork.getAnimalInfo(image, baikeNum)
+            val animalResponse = ImageRecognitionNetwork.getAnimalInfo(image)
 
             Result.success(animalResponse.result)
 

@@ -23,9 +23,5 @@
         tools:layout_editor_absoluteX="219dp"
         tools:layout_editor_absoluteY="117dp" />
 
-<!--    <fragment-->
-<!--        android:name="com.example.imagerecognition.ui.animal.AnimalFragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent" />-->
 
 </LinearLayout>

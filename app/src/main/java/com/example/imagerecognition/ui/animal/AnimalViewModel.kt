@@ -10,7 +10,7 @@ class AnimalViewModel: ViewModel() {
     private val imageLiveData = MutableLiveData<String>()
 
     val animalLiveData = Transformations.switchMap(imageLiveData) { image ->
-        Repository.getAnimalInfo(image, 6)
+        Repository.getAnimalInfo(image)
     }
 
     fun getAnimalInfo(image: String) {

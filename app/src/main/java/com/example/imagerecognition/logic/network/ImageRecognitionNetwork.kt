@@ -15,7 +15,7 @@ object ImageRecognitionNetwork {
 
     private val animalService = ServiceCreator.create<AnimalService>()
 
-    suspend fun getAnimalInfo(image: String, baikeNum: Int) = animalService.getAnimalInfo(image, baikeNum).await()
+    suspend fun getAnimalInfo(image: String) = animalService.getAnimalInfo(image).await()
 
     private suspend fun <T> Call<T>.await(): T {
         return suspendCoroutine { continuation ->
