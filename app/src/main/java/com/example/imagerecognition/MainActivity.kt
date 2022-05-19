@@ -2,18 +2,20 @@ package com.example.imagerecognition
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.imagerecognition.databinding.ActivityMainBinding
-import com.example.imagerecognition.logic.network.ImageRecognitionNetwork
-import com.example.imagerecognition.ui.MainPage.FunctionAdapter
-import com.example.imagerecognition.ui.MainPage.MainPageViewModel
+import com.example.imagerecognition.ui.mainPage.FunctionAdapter
+import com.example.imagerecognition.ui.mainPage.MainPageViewModel
 import com.example.imagerecognition.ui.animal.AnimalViewModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
+
+    companion object{
+        val ANIMAL: Int = 1
+        val PLANT: Int = 2
+
+    }
 
     lateinit var binding: ActivityMainBinding
 
@@ -23,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

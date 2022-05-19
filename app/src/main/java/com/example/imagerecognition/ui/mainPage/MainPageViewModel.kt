@@ -1,4 +1,4 @@
-package com.example.imagerecognition.ui.MainPage
+package com.example.imagerecognition.ui.mainPage
 
 import androidx.lifecycle.ViewModel
 import com.example.imagerecognition.R
