@@ -1,5 +1,6 @@
 package com.example.imagerecognition.logic.network
 
+import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -22,8 +23,15 @@ object ImageRecognitionNetwork {
             enqueue(object : Callback<T> {
                 override fun onResponse(call: Call<T>, response: Response<T>) {
                     val body = response.body()
-                    if (body != null) continuation.resume(body)
-                    else continuation.resumeWithException(RuntimeException("response body is null"))
+                    if (body != null) {
+                        continuation.resume(body)
+//                        Log.d("base64","msgOK:" + response.toString())
+//                        Log.d("base64","msgOKbody:" + body.toString())
+                    }
+                    else {
+                        continuation.resumeWithException(RuntimeException("response body is null"))
+//                        Log.d("base64","msgNO:" + response.toString())
+                    }
                 }
 
                 override fun onFailure(call: Call<T>, t: Throwable) {
