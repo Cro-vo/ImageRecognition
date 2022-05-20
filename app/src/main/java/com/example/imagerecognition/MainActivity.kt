@@ -37,15 +37,6 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerView.adapter = adapter
 
 
-//        binding.button.setOnClickListener {
-//            viewModel.getAnimalInfo("https://baidu-ai.bj.bcebos.com/image-classify/animal.jpeg")
-//        }
-//
-//
-//        viewModel.animalLiveData.observe(this, Observer {
-//            val results = it.getOrNull()
-//            println(results)
-//        })
 
 
 

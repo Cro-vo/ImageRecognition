@@ -41,7 +41,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="5dp"
                     android:textSize="16sp"
-                    android:text="家猫"/>
+                    android:text=""/>
 
                 <TextView
                     android:id="@+id/animalScore"
@@ -50,7 +50,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="5dp"
                     android:textSize="16sp"
-                    android:text="36.25"/>
+                    android:text=""/>
 
             </LinearLayout>
 
@@ -64,6 +64,7 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="5dp"
                     android:textSize="16sp"
+                    android:maxLines="2"
                     android:text=""/>
 
 

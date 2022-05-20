@@ -15,13 +15,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.imagerecognition.MainActivity
 import com.example.imagerecognition.Utils
 import com.example.imagerecognition.databinding.ActivityChoiceBinding
+import com.example.imagerecognition.ui.animal.AnimalActivity
 import com.example.imagerecognition.ui.animal.AnimalViewModel
 import java.io.File
 import kotlin.math.max
 
 class ChoiceActivity : AppCompatActivity() {
-
-    val viewModel by lazy { ViewModelProvider(this).get(AnimalViewModel::class.java) }
 
     companion object {
         val TAKE_PHOTO: Int = 1
@@ -77,7 +76,11 @@ class ChoiceActivity : AppCompatActivity() {
                     bitmap = bitmap?.let { Utils.compressBitmap(it) }
                     val base64 = Utils.bitmapToBase64(bitmap)
                     if (base64 != null) {
-                        getInfo(base64)
+                        // 将数据发送至显示Activity中进行服务器请求
+                        val intent = Intent(this, AnimalActivity::class.java)
+                        intent.putExtra("base64", base64)
+                        startActivity(intent)
+
                     }
 
                 }
@@ -92,7 +95,11 @@ class ChoiceActivity : AppCompatActivity() {
 
                         val base64 = Utils.bitmapToBase64(bitmap)
                         if (base64 != null) {
-                            getInfo(base64)
+                            // 将数据发送至显示Activity中进行服务器请求
+                            val intent = Intent(this, AnimalActivity::class.java)
+                            intent.putExtra("base64", base64)
+                            startActivity(intent)
+
                         }
                     }
 
@@ -104,21 +111,7 @@ class ChoiceActivity : AppCompatActivity() {
     }
 
 
-    private fun getInfo(base64: String){
-        val function = intent.getIntExtra("function", 1)
-        if (function == MainActivity.ANIMAL){
-            viewModel.getAnimalInfo(base64)
-            Log.d("base64", base64.length.toString())
-            viewModel.animalLiveData.observe(this, Observer {
-                val results = it.getOrNull()
-                Log.d("base_results",results.toString())
-            })
 
-        } else if (function == MainActivity.PLANT) {
-
-        }
-
-    }
 
     private fun getBitmapFromUri(uri: Uri) = contentResolver
         .openFileDescriptor(uri, "r")?.use {
