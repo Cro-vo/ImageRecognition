@@ -1,22 +1,20 @@
-package com.example.imagerecognition.ui.animal
+package com.example.imagerecognition.ui.animal_plant
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.imagerecognition.MainActivity
+import com.example.imagerecognition.ui.mainPage.MainActivity
 import com.example.imagerecognition.databinding.ActivityAnimalBinding
-import com.example.imagerecognition.logic.model.AnimalResponse
 
 class AnimalActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityAnimalBinding
 
     val animalViewModel by lazy { ViewModelProvider(this).get(AnimalViewModel::class.java) }
+    val plantViewModel by lazy { ViewModelProvider(this).get(PlantViewModel::class.java) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +25,6 @@ class AnimalActivity : AppCompatActivity() {
         if (base64 != null) {
             getInfo(base64)
         }
-
-        val layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.layoutManager = layoutManager
-
-
 
 
     }
@@ -51,6 +44,7 @@ class AnimalActivity : AppCompatActivity() {
                 binding.recyclerView.layoutManager = layoutManager
                 if (results != null) {
                     // 请求成功
+//                        Log.d("result", "results...${results}")
                     val adapter = AnimalAdapter(this, results)
                     binding.recyclerView.adapter = adapter
 
@@ -64,6 +58,31 @@ class AnimalActivity : AppCompatActivity() {
             })
 
         } else if (function == MainActivity.PLANT) {
+//            Log.d("plant", "in plant")
+
+            plantViewModel.getPlantInfo(base64)
+//            Log.d("base64", base64.length.toString())
+            plantViewModel.plantLiveData.observe(this, Observer {
+                val results = it.getOrNull()
+//                Log.d("base_results",results.toString())
+
+                val layoutManager = LinearLayoutManager(this)
+                binding.recyclerView.layoutManager = layoutManager
+                if (results != null) {
+                    // 请求成功
+//                        Log.d("result", "results...${results}")
+                    val adapter = PlantAdapter(this, results)
+                    binding.recyclerView.adapter = adapter
+
+                } else {
+                    // 请求失败
+                    Toast.makeText(this, "请求失败，请重新尝试", Toast.LENGTH_SHORT).show()
+
+                }
+
+
+            })
+
 
         }
 

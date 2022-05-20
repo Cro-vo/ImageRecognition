@@ -1,19 +1,19 @@
-package com.example.imagerecognition.ui.animal
+package com.example.imagerecognition.ui.animal_plant
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.imagerecognition.logic.Repository
 
-class AnimalViewModel: ViewModel() {
+class PlantViewModel: ViewModel() {
 
     private val imageLiveData = MutableLiveData<String>()
 
-    val animalLiveData = Transformations.switchMap(imageLiveData) { image ->
-        Repository.getAnimalInfo(image)
+    val plantLiveData = Transformations.switchMap(imageLiveData) { image ->
+        Repository.getPlantInfo(image)
     }
 
-    fun getAnimalInfo(image: String) {
+    fun getPlantInfo(image: String) {
         imageLiveData.value = image
     }
 

@@ -8,19 +8,15 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.core.content.FileProvider
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.example.imagerecognition.MainActivity
 import com.example.imagerecognition.Utils
 import com.example.imagerecognition.databinding.ActivityChoiceBinding
-import com.example.imagerecognition.ui.animal.AnimalActivity
-import com.example.imagerecognition.ui.animal.AnimalViewModel
+import com.example.imagerecognition.ui.animal_plant.AnimalActivity
 import java.io.File
-import kotlin.math.max
 
 class ChoiceActivity : AppCompatActivity() {
+
+    var function: Int = 0
 
     companion object {
         val TAKE_PHOTO: Int = 1
@@ -37,6 +33,8 @@ class ChoiceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChoiceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        function = intent.getIntExtra("function", 1)
 
         binding.photoButton.setOnClickListener {
             outputImg = File(this.externalCacheDir, "output_image.jpg")
@@ -79,6 +77,7 @@ class ChoiceActivity : AppCompatActivity() {
                         // 将数据发送至显示Activity中进行服务器请求
                         val intent = Intent(this, AnimalActivity::class.java)
                         intent.putExtra("base64", base64)
+                        intent.putExtra("function", function)
                         startActivity(intent)
 
                     }
@@ -98,6 +97,7 @@ class ChoiceActivity : AppCompatActivity() {
                             // 将数据发送至显示Activity中进行服务器请求
                             val intent = Intent(this, AnimalActivity::class.java)
                             intent.putExtra("base64", base64)
+                            intent.putExtra("function", function)
                             startActivity(intent)
 
                         }

@@ -1,13 +1,10 @@
-package com.example.imagerecognition
+package com.example.imagerecognition.ui.mainPage
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.imagerecognition.databinding.ActivityMainBinding
-import com.example.imagerecognition.ui.mainPage.FunctionAdapter
-import com.example.imagerecognition.ui.mainPage.MainPageViewModel
-import com.example.imagerecognition.ui.animal.AnimalViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,8 +15,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     lateinit var binding: ActivityMainBinding
-
-    val viewModel by lazy { ViewModelProvider(this).get(AnimalViewModel::class.java) }
 
     val mainpageViewModel by lazy { ViewModelProvider(this).get(MainPageViewModel::class.java) }
 
