@@ -1,39 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.choice.ChoiceActivity"
-    android:orientation="vertical"
-    android:background="@color/bgcolor">
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="5dp"
+    android:orientation="vertical">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/middle"
-        android:gravity="center_horizontal"
-        app:titleTextColor="@color/black"
-        app:layout_collapseMode="pin" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/bgcolor"
+        android:layout_gravity="center">
 
-    <Button
-        android:id="@+id/photoButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="使用相机拍照"
-        android:layout_margin="10dp"
-        android:layout_weight="1"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="84dp" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/middle"
+            android:gravity="center_horizontal"
+            app:titleTextColor="@color/black"
+            app:layout_collapseMode="pin" />
 
-    <Button
-        android:id="@+id/albumButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="从相册选取"
-        android:layout_margin="10dp"
-        android:layout_weight="1"
-        tools:layout_editor_absoluteX="101dp"
-        tools:layout_editor_absoluteY="84dp" />
-</LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bgcolor"/>
+
+    </LinearLayout>
+
+
+
+</com.google.android.material.card.MaterialCardView>

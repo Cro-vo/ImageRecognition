@@ -10,9 +10,14 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.view.MenuItem
 import androidx.core.content.FileProvider
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.imagerecognition.Utils
 import com.example.imagerecognition.databinding.ActivityChoiceBinding
+import com.example.imagerecognition.logic.LoadingDialog
 import com.example.imagerecognition.ui.animal_plant.AnimalActivity
+import com.example.imagerecognition.ui.mainPage.FunctionAdapter
+import com.example.imagerecognition.ui.mainPage.MainPageViewModel
 import java.io.File
 
 class ChoiceActivity : AppCompatActivity() {
@@ -27,6 +32,7 @@ class ChoiceActivity : AppCompatActivity() {
     lateinit var imgUri: Uri
     lateinit var outputImg: File
 
+    val choiceViewModel by lazy { ViewModelProvider(this).get(ChoiceViewModel::class.java) }
 
     lateinit var binding: ActivityChoiceBinding
 
@@ -39,33 +45,42 @@ class ChoiceActivity : AppCompatActivity() {
             it.setDisplayHomeAsUpEnabled(true)
         }
 
+
+
+        val layoutManager = GridLayoutManager(this, 2)
+        binding.recyclerView.layoutManager = layoutManager
+        val adapter = ChoiceAdapter(this, choiceViewModel.choiceList)
+        binding.recyclerView.adapter = adapter
+
+
         function = intent.getIntExtra("function", 1)
 
-        binding.photoButton.setOnClickListener {
-            outputImg = File(this.externalCacheDir, "output_image.jpg")
-            if (outputImg.exists()){
-                outputImg.delete()
-            }
-            outputImg.createNewFile()
-            imgUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
-                FileProvider.getUriForFile(this, "com.example.imagerecognition.fileprovider", outputImg)
-            } else {
-                Uri.fromFile(outputImg)
-            }
-            val intent = Intent("android.media.action.IMAGE_CAPTURE")
-            intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri)
 
-            startActivityForResult(intent, TAKE_PHOTO)
 
+    }
+
+    fun albumButton(){
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
+        intent.addCategory(Intent.CATEGORY_OPENABLE)
+        intent.type = "image/*"
+        startActivityForResult(intent, FROM_ALBUM)
+    }
+
+    fun photoButton(){
+        outputImg = File(this.externalCacheDir, "output_image.jpg")
+        if (outputImg.exists()){
+            outputImg.delete()
         }
-
-        binding.albumButton.setOnClickListener {
-            val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-            intent.addCategory(Intent.CATEGORY_OPENABLE)
-            intent.type = "image/*"
-            startActivityForResult(intent, FROM_ALBUM)
+        outputImg.createNewFile()
+        imgUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            FileProvider.getUriForFile(this, "com.example.imagerecognition.fileprovider", outputImg)
+        } else {
+            Uri.fromFile(outputImg)
         }
+        val intent = Intent("android.media.action.IMAGE_CAPTURE")
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, imgUri)
 
+        startActivityForResult(intent, TAKE_PHOTO)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

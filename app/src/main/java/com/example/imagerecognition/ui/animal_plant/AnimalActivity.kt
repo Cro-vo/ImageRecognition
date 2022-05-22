@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imagerecognition.ui.mainPage.MainActivity
 import com.example.imagerecognition.databinding.ActivityAnimalBinding
+import com.example.imagerecognition.logic.LoadingDialog
 
 class AnimalActivity : AppCompatActivity() {
 
@@ -25,6 +26,8 @@ class AnimalActivity : AppCompatActivity() {
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
         }
+
+        LoadingDialog.getInstance(this).show()
 
         val base64 = intent.getStringExtra("base64")
         if (base64 != null) {
@@ -53,6 +56,10 @@ class AnimalActivity : AppCompatActivity() {
                     val adapter = AnimalAdapter(this, results)
                     binding.recyclerView.adapter = adapter
 
+
+                    LoadingDialog.getInstance(this).hide()
+                    LoadingDialog.setInstance(null)
+
                 } else {
                     // 请求失败
                     Toast.makeText(this, "请求失败，请重新尝试", Toast.LENGTH_SHORT).show()
@@ -78,6 +85,10 @@ class AnimalActivity : AppCompatActivity() {
 //                        Log.d("result", "results...${results}")
                     val adapter = PlantAdapter(this, results)
                     binding.recyclerView.adapter = adapter
+
+
+                    LoadingDialog.getInstance(this).hide()
+                    LoadingDialog.setInstance(null)
 
                 } else {
                     // 请求失败

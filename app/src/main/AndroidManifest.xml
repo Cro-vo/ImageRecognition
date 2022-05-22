@@ -40,13 +40,16 @@
             android:exported="true" />
 
         <activity
+            android:label="详细信息"
             android:name=".ui.detail.DetailActivity"
             android:theme="@style/DetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.choice.ChoiceActivity"
+            android:label="选择方式"
             android:exported="false" />
         <activity
+            android:label="结果展示"
             android:name=".ui.animal_plant.AnimalActivity"
             android:exported="false" />
         <activity
