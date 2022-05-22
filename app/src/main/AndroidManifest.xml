@@ -41,6 +41,7 @@
 
         <activity
             android:name=".ui.detail.DetailActivity"
+            android:theme="@style/DetailActivity"
             android:exported="false" />
         <activity
             android:name=".ui.choice.ChoiceActivity"

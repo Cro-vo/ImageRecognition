@@ -4,7 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.animal_plant.AnimalActivity">
+    tools:context=".ui.animal_plant.AnimalActivity"
+    android:orientation="vertical"
+    android:background="@color/bgcolor">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/middle"
+        android:gravity="center_horizontal"
+        app:titleTextColor="@color/black"
+        app:layout_collapseMode="pin" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"

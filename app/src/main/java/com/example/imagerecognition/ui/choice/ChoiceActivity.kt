@@ -8,6 +8,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.MenuItem
 import androidx.core.content.FileProvider
 import com.example.imagerecognition.Utils
 import com.example.imagerecognition.databinding.ActivityChoiceBinding
@@ -33,6 +34,10 @@ class ChoiceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityChoiceBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+        }
 
         function = intent.getIntExtra("function", 1)
 
@@ -110,7 +115,13 @@ class ChoiceActivity : AppCompatActivity() {
 
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> this.finish()
+        }
 
+        return super.onOptionsItemSelected(item)
+    }
 
 
     private fun getBitmapFromUri(uri: Uri) = contentResolver

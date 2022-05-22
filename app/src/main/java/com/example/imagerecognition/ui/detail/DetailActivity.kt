@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
+import android.view.MenuItem
 import androidx.core.app.ActivityCompat
 import com.bumptech.glide.Glide
 import com.example.imagerecognition.ImageRecognitionApplication
@@ -44,6 +45,10 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+        }
 
         val function = intent.getIntExtra("function", 1)
 
@@ -53,6 +58,7 @@ class DetailActivity : AppCompatActivity() {
             binding.name.text = result.name
             binding.score.text = "相似度：${result.score}"
             binding.description.text = result.baikeInfo.description
+            binding.collaspingToolbar.title = result.name
 
             imgUrl = result.baikeInfo.imageURL
 
@@ -63,13 +69,14 @@ class DetailActivity : AppCompatActivity() {
             binding.name.text = result.name
             binding.score.text = "相似度：${result.score}"
             binding.description.text = result.baikeInfo.description
+            binding.collaspingToolbar.title = result.name
 
             imgUrl = result.baikeInfo.imageURL
 
         }
 
 
-        binding.button.setOnClickListener {
+        binding.downloadBtn.setOnClickListener {
             requestPermission()
 
             val intent = Intent(this, DownloadService::class.java)
@@ -79,6 +86,14 @@ class DetailActivity : AppCompatActivity() {
         }
 //        Log.d("result", "result in  activity ${result}")
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> this.finish()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 

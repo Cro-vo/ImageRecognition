@@ -2,6 +2,7 @@ package com.example.imagerecognition.ui.animal_plant
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -20,6 +21,10 @@ class AnimalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAnimalBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+        }
 
         val base64 = intent.getStringExtra("base64")
         if (base64 != null) {
@@ -86,6 +91,14 @@ class AnimalActivity : AppCompatActivity() {
 
         }
 
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId) {
+            android.R.id.home -> this.finish()
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 
