@@ -68,14 +68,17 @@ class MainActivity : AppCompatActivity() {
 //                Toast.makeText(this, "gps", Toast.LENGTH_SHORT).show()
                 thread {
                     val location = getLocation(this)
-//                    location?.let { getGeoByLocation(it) }
+                  val address = getGeoByLocation(location!!)
                     if (location != null) {
                         this.runOnUiThread {
                             binding.textView.visibility = View.VISIBLE
-                            binding.latiView.text = "经度：${location.longitude}"
+
+                            binding.longView.text = "经度：${location.longitude}"
                             binding.longView.visibility = View.VISIBLE
                             binding.latiView.text = "纬度：${location.latitude}"
                             binding.latiView.visibility = View.VISIBLE
+                            binding.addrView.text = "地址:${address.getAddressLine(0)}"
+                            binding.addrView.visibility = View.VISIBLE
                         }
                     }
 
@@ -103,14 +106,20 @@ class MainActivity : AppCompatActivity() {
 //                Toast.makeText(this, "gps", Toast.LENGTH_SHORT).show()
                 thread {
                     val location = getLocation(this)
-//                    location?.let { getGeoByLocation(it) }
+                    val address = getGeoByLocation(location!!)
+
                     if (location != null) {
                         this.runOnUiThread {
                             binding.textView.visibility = View.VISIBLE
-                            binding.longView.text = "经度：${location.longitude}"
+
+                            binding.longView.text = "经度:${location.longitude}"
                             binding.longView.visibility = View.VISIBLE
-                            binding.latiView.text = "纬度：${location.latitude}"
+                            binding.latiView.text = "纬度:${location.latitude}"
                             binding.latiView.visibility = View.VISIBLE
+                            binding.addrView.text = "地址:${address.getAddressLine(0)}"
+                            binding.addrView.visibility = View.VISIBLE
+
+
                         }
                     }
 
@@ -148,20 +157,19 @@ class MainActivity : AppCompatActivity() {
         return location
     }
 
-         private fun getGeoByLocation(location:Location){
-                Log.d("test", "longitude：${location.longitude}")
-                Log.d("test", "latitude：${location.latitude}")
+         private fun getGeoByLocation(location:Location): Address {
+//                Log.d("test", "longitude：${location.longitude}")
+//                Log.d("test", "latitude：${location.latitude}")
                 val ge = Geocoder(this)
                 var addressList =ArrayList<Address>()
                 try {
                     addressList = ge.getFromLocation(location.latitude,location.longitude,1) as ArrayList<Address>
-                    Log.d("test", addressList.toString())
+//                    Log.d("test", addressList.toString())
                 }catch (e: IOException){
                     e.printStackTrace()
                 }
-                if (addressList.size>0){
-                    Log.d("test", "${addressList[0].getAddressLine(0)}")
-                }
+
+                return addressList[0]
              }
 
 
